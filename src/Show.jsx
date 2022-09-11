@@ -4,20 +4,26 @@ import {
   useGetByIDQuery,
   useDeleteMutation,
 } from "./services/post";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Show.css";
 import Button from "./components/Button";
 
 function Show() {
   const responseinfo = useGetAllPostQuery();
-  const realdata = responseinfo?.data.data;
+  const realdata = responseinfo;
+  const i = 0;
 
   const [data, setdata] = useState(realdata);
   const [show, setshow] = useState("first");
-  console.log("statedata", responseinfo);
+  console.log("sAkashhhh", data);
+
+  useEffect(() => {
+    setdata(realdata.data.data);
+    console.log("this is i", i + 1, data);
+  }, [responseinfo]);
 
   const deleter = (e) => {
-    console.log(e);
+    // console.log(e);
     const update = data.filter((data) => data.id !== e);
     setdata(update);
   };
@@ -37,6 +43,7 @@ function Show() {
             <div
             //  className="bg-gray-300 p-5 mx-3 flex items-center justify-between"
             >
+              helloooo
               {data.map((val, key) => (
                 <div
                   key={key}
