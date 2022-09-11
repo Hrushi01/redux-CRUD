@@ -4,7 +4,7 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
-import Show from "./Show.jsx";
+import Show from "./pages/Show.jsx";
 
 function App() {
   const [login, setlogin] = useState(false);

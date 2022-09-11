@@ -3,10 +3,10 @@ import {
   useGetAllPostQuery,
   useGetByIDQuery,
   useDeleteMutation,
-} from "./services/post";
+} from "../services/post";
 import { useState, useEffect } from "react";
 import "./Show.css";
-import Button from "./components/Button";
+import Button from "../components/Button";
 
 function Show() {
   const responseinfo = useGetAllPostQuery();

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Show from "../Show";
+import Show from "../pages/Show";
 import { Routes, Route, Link } from "react-router-dom";
 import Create from "./Create";
 import AddData from "../reducers/AddData.jsx";
