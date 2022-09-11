@@ -5,6 +5,8 @@ import Signup from "./pages/Signup.jsx";
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import Show from "./pages/Show.jsx";
+import AddUser from "./reducers/AddData.jsx";
+import EditUser from "./reducers/Edituser.jsx";
 
 function App() {
   const [login, setlogin] = useState(false);
@@ -20,14 +22,29 @@ function App() {
   // if (responseinfo.isLoading) return <div>LODING.......</div>;
 
   return (
-    <div className="my-5  ">
+    <div className=" h-screen content-center  p-3 bg-slate-500 overflow-auto     ">
       <Routes>
-        {/* <Route path="/" element={<Login />} /> */}
-        {/* <Route path="/" element={<Signup />} /> */}
-        {/* <Route path="/crud" element={<Crud />} /> */}
+        <Route
+          path="/"
+          element={
+            login ? <Crud /> : <Login login={login} setlogin={setlogin} />
+          }
+        />
+        <Route path="/signup" element={<Signup />} />
+
+        <Route
+          path="/login"
+          element={
+            login ? <Crud /> : <Login login={login} setlogin={setlogin} />
+          }
+        />
+
+        <Route path="/add-user" element={<AddUser />} />
+        <Route path="/edit-user/:id" element={<EditUser />} />
       </Routes>
+
       {/* {login ? <Crud /> : <Login login={login} setlogin={setlogin} />} */}
-      <Crud />
+      {/* <Crud /> */}
 
       {/* <Crud /> */}
       {/* <Login /> */}

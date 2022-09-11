@@ -23,7 +23,7 @@ export default function Login(props) {
   //     }
 
   // }, [])
-  let token = localStorage.getItem("user");
+  // let token = localStorage.getItem("user");
 
   const handler = async () => {
     let item = { email, password };
@@ -35,53 +35,14 @@ export default function Login(props) {
       })
       .then((results) => {
         setlogin(true);
-        console.log("logiiiin", login);
+        // console.log("logiiiin", login);
 
         // <div>Hekko</div>
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // const getdata = async ()=>{
-    //     const result= await fetch();
-
-    // }
-
-    // let result = await fetch('https://reqres.in/api/login',
-    // {
-    //     method:"POST",
-
-    //     headers:{
-    //         "Content-Type":"application/json",
-    //         "Accept":"application/json"
-    //     },
-    //     body: JSON.stringify(item),
-
-    // }
-    // );
-    // result= await result.json();
-    // localStorage.setItem("user-info",JSON.stringify(result))
-    // history.pushState("/add")
   };
-  //   if (token) {
-  //     setlogin("yes");
-  //     console.log("login", login);
-  //     console.log("token yyes");
-  //   }
-  // else{
-  //     token=axios.post("https://reqres.in/api/login",
-  //     {
-  //         email:email,
-  //         password:password
-  //     })
-  //     .then(results=>{
-  //         setlogin("yes")
-  //         console.log("done")
-
-  //         // <div>Hekko</div>
-  //     })
-  //     .catch(err=>{console.log(err)}
   const showdata = () => (
     <div>
       <Link to={"crud"}>
@@ -90,9 +51,9 @@ export default function Login(props) {
     </div>
   );
   return (
-    <div className="pt-4 content-center flex justify-center bg-slate-300">
+    <div className="pt-4 mx-auto  content-center max-w-2xl flex justify-center bg-slate-300">
       <div>
-        <div className="pt-4 content-center flex justify-center bg-slate-300">
+        <div className="pt-4 font-serif font-bold text-3xl content-center flex justify-center ">
           Login
         </div>
         <br />
@@ -100,7 +61,7 @@ export default function Login(props) {
           <input
             type="text"
             placeholder="Email.."
-            className="shadow-sm outline-none"
+            className="shadow-sm p-2 outline-none"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -110,22 +71,32 @@ export default function Login(props) {
           <input
             type="password"
             placeholder="Password.."
-            className="shadow-sm outline-none"
+            className="shadow-sm p-2  outline-none"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
           />
           <br />
 
-          <Button className="mx-0 p-0" onClick={() => handler()}>
-            Submit
-          </Button>
+          <button
+            className="bg-indigo-600 mr-6   text-white py-2 px-5 my-10 rounded hover:bg-indigo-200"
+            onClick={() => handler()}
+          >
+            Login
+          </button>
 
-          <Button className="mx-0 p-0" onClick={() => setlogin("no")}>
+          <Link to={"/signup"}>
+            <Button>Signup</Button>
+          </Link>
+
+          {/* <Button
+            // className="mx-0 p-0 mt-0 pt-0"
+            onClick={() => setlogin(false)}
+          >
             Logout
-          </Button>
+          </Button> */}
         </div>
-        {login == true ? showdata() : console.log("not login")}
+        {login == true ? showdata() : console.log("USER IS NOT LOGGED IN")}
       </div>
     </div>
   );

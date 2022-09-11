@@ -22,15 +22,17 @@ export default function Crud() {
           <Show />
         </Provider>
       </div>
-      <div className="container mx-auto px-2 max-w-4xl pt-10 py-2  bg-slate-400">
-        <h1 className="text-center font-bold text-2xl text-gray-700">
-          ADDED USERS
-        </h1>
-        <Routes>
-          <Route path="/" element={<UserList />} />
-          <Route path="/add-user" element={<AddData />} />
-          <Route path="/edit-user/:id" element={<Edituser />} />
-        </Routes>
+      <div className="container mx-auto px-2 max-w-4xl pt-10 py-2  bg-slate-400 ">
+        <div className=" bg-slate-300 p-3">
+          <h1 className="text-center pt-2 font-bold  font-serif text-2xl text-gray-700">
+            ADDED USERS
+          </h1>
+          <Routes>
+            <Route path="/" element={<UserList />} />
+            <Route path="/add-user" element={<AddData />} />
+            <Route path="/edit-user/:id" element={<Edituser />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );

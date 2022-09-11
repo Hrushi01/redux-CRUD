@@ -30,21 +30,26 @@ const EditUser = () => {
   };
 
   return (
-    <div className="mt-10 max-w-xl mx-auto">
-      <TextField
-        label="Name"
-        value={values.name}
-        onChange={(e) => setValues({ ...values, name: e.target.value })}
-        inputProps={{ type: "text", placeholder: "enter" }}
-      />
-      <br />
-      <TextField
-        label="Email"
-        value={values.email}
-        onChange={(e) => setValues({ ...values, email: e.target.value })}
-        inputProps={{ type: "email", placeholder: "enter" }}
-      />
-      <Button onClick={handleEditUser}>Edit</Button>
+    <div className="pt-4 mx-auto  content-center max-w-2xl flex justify-center bg-slate-300">
+      <div>
+        <div className="pt-2 font-serif pl-0 pb-3 text-2xl">
+          Enter New Details
+        </div>
+        <TextField
+          label="Name"
+          value={values.name}
+          onChange={(e) => setValues({ ...values, name: e.target.value })}
+          inputProps={{ type: "text", placeholder: "enter" }}
+        />
+        <br />
+        <TextField
+          label="Email"
+          value={values.email}
+          onChange={(e) => setValues({ ...values, email: e.target.value })}
+          inputProps={{ type: "email", placeholder: "enter" }}
+        />
+        <Button onClick={handleEditUser}>Edit</Button>
+      </div>
     </div>
   );
 };

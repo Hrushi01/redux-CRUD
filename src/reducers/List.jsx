@@ -14,7 +14,7 @@ const UserList = () => {
   const renderCard = () =>
     users.map((user) => (
       <div
-        className="bg-gray-300 p-5 flex items-center justify-between"
+        className="bg-gray-400 p-2.5 rounded flex items-center justify-between"
         key={user.id}
       >
         <div>
@@ -70,7 +70,7 @@ const UserList = () => {
           renderCard()
         ) : (
           <p className="text-center col-span-2 text-gray-700 font-semibold">
-            No User
+            No New User Added
           </p>
         )}
       </div>
