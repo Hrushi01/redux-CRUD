@@ -1,0 +1,11 @@
+.first{
+    height: 0px;
+   
+    visibility: hidden;
+}
+.Next{
+    
+   /* height:50rem; */
+    background-color:rgb(54, 141, 228);
+   
+}
