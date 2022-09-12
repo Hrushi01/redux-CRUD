@@ -39,14 +39,14 @@ const EditUser = () => {
           label="Name"
           value={values.name}
           onChange={(e) => setValues({ ...values, name: e.target.value })}
-          inputProps={{ type: "text", placeholder: "enter" }}
+          inputProps={{ type: "text", placeholder: "Enter Name" }}
         />
         <br />
         <TextField
           label="Email"
           value={values.email}
           onChange={(e) => setValues({ ...values, email: e.target.value })}
-          inputProps={{ type: "email", placeholder: "enter" }}
+          inputProps={{ type: "email", placeholder: "Enter Email" }}
         />
         <Button onClick={handleEditUser}>Edit</Button>
       </div>

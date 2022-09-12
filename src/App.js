@@ -7,10 +7,13 @@ import { useState } from "react";
 import Show from "./pages/Show.jsx";
 import AddUser from "./reducers/AddData.jsx";
 import EditUser from "./reducers/Edituser.jsx";
+import Addnew from "./pages/Addnew.jsx";
+import { useCreatePostMutation } from "./services/post.jsx";
 
 function App() {
   const [login, setlogin] = useState(false);
   const [singup, setsingup] = useState(false);
+
   // const [deletepost,responseinfo]=useDeleteMutation();
 
   // const responsebyid = useGetByIDQuery(10);
@@ -23,6 +26,7 @@ function App() {
 
   return (
     <div className=" h-screen content-center  p-3 bg-slate-500 overflow-auto     ">
+      {/* Uncomment this after */}
       <Routes>
         <Route
           path="/"
@@ -42,6 +46,10 @@ function App() {
         <Route path="/add-user" element={<AddUser />} />
         <Route path="/edit-user/:id" element={<EditUser />} />
       </Routes>
+      {/* Uncomment above after */}
+      {/* <Routes>
+        <Route path="/" element={<Crud />} />
+      </Routes> */}
 
       {/* {login ? <Crud /> : <Login login={login} setlogin={setlogin} />} */}
       {/* <Crud /> */}

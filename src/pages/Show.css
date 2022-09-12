@@ -1,11 +1,8 @@
 .first{
     height: 0px;
-   
+    display: none;
     visibility: hidden;
-}
-.Next{
+    overflow: hidden;
+    overflow-x: hidden;
     
-   /* height:50rem; */
-    background-color:rgb(54, 141, 228);
-   
 }
