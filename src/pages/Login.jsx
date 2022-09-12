@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 // import { Result } from "postcss";
 // import {useHistory} from 'react-router-dom';
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import List from "../reducers/List";
 import Crud from "../components/Crud";
+import { render } from "@testing-library/react";
 
 export default function Login(props) {
   const { login, setlogin } = props;
@@ -23,7 +24,7 @@ export default function Login(props) {
   //     }
 
   // }, [])
-  // let token = localStorage.getItem("user");
+  let token = localStorage.getItem("token");
 
   const handler = async () => {
     let item = { email, password };
@@ -35,7 +36,11 @@ export default function Login(props) {
       })
       .then((results) => {
         setlogin(true);
-        // console.log("logiiiin", login);
+        console.log("logiiiin data t", results);
+        localStorage.setItem("token", results.data.token);
+        setTimeout(() => {
+          localStorage.removeItem("token");
+        }, 3600000);
 
         // <div>Hekko</div>
       })
@@ -43,13 +48,29 @@ export default function Login(props) {
         console.log(err);
       });
   };
-  const showdata = () => (
-    <div>
-      <Link to={"crud"}>
-        <Crud />
-      </Link>
-    </div>
-  );
+  // const showdata = () => (
+  //   <div>
+  //     <Link to={"crud"}>
+  //       <Crud />
+  //     </Link>
+  //   </div>
+  // );
+
+  const loginn = () => {
+    if (token == null) {
+    } else {
+      return <Navigate to={"/crud"} />;
+    }
+  };
+
+  useEffect(() => {
+    loginn();
+  }, [login]);
+
+  if (token == null) {
+  } else {
+    return <Navigate to={"/crud"} />;
+  }
   return (
     <div className="pt-4 mx-auto  content-center max-w-2xl flex justify-center bg-slate-300">
       <div>
@@ -96,7 +117,7 @@ export default function Login(props) {
             Logout
           </Button> */}
         </div>
-        {login == true ? showdata() : console.log("USER IS NOT LOGGED IN")}
+        {login == true ? {} : console.log("USER IS NOT LOGGED IN")}
       </div>
     </div>
   );

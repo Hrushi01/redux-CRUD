@@ -23,7 +23,7 @@ const AddUser = () => {
         email: values.email,
       })
     );
-    navigate("/");
+    navigate("/custom");
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Show from "../pages/Show";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Create from "./Create";
 import AddData from "../reducers/AddData.jsx";
 import {
@@ -13,26 +13,29 @@ import UserList from "../reducers/List.jsx";
 import Edituser from "../reducers/Edituser";
 import { Provider } from "react-redux";
 import { store2 } from "../store2";
+import Custome from "../pages/Custome";
 
-export default function Crud() {
+export default function Crud(props) {
+  const { login, setlogin } = props;
+
+  const token = localStorage.getItem("token");
+  const render = () => {
+    if (token) {
+    } else {
+      <Navigate to={"/login"} />;
+    }
+  };
+
+  useEffect(() => {
+    render();
+  }, [login]);
+
   return (
     <div>
-      <div className="container mx-auto px-2 max-w-4xl pt-10 py-2  bg-slate-400">
+      <div>
         <Provider store={store2}>
-          <Show />
+          <Show login={login} setlogin={setlogin} />
         </Provider>
-      </div>
-      <div className="container mx-auto px-2 max-w-4xl pt-10 py-2  bg-slate-400 ">
-        <div className=" bg-slate-300 p-3">
-          <h1 className="text-center pt-2 font-bold  font-serif text-2xl text-gray-700">
-            ADDED USERS
-          </h1>
-          <Routes>
-            <Route path="/" element={<UserList />} />
-            <Route path="/add-user" element={<AddData />} />
-            <Route path="/edit-user/:id" element={<Edituser />} />
-          </Routes>
-        </div>
       </div>
     </div>
   );

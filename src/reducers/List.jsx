@@ -61,7 +61,7 @@ const UserList = () => {
     ));
 
   return (
-    <div>
+    <div className="container mx-auto px-2 max-w-4xl pt-10 py-2  bg-slate-300">
       <Link to="/add-user">
         <Button>Add User</Button>
       </Link>

@@ -2,17 +2,21 @@ import React from "react";
 import Crud from "./components/Crud.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Redirect } from "react-router-dom";
 import { useState } from "react";
+
 import Show from "./pages/Show.jsx";
 import AddUser from "./reducers/AddData.jsx";
 import EditUser from "./reducers/Edituser.jsx";
 import Addnew from "./pages/Addnew.jsx";
 import { useCreatePostMutation } from "./services/post.jsx";
+import Custome from "./pages/Custome.jsx";
 
 function App() {
   const [login, setlogin] = useState(false);
   const [singup, setsingup] = useState(false);
+  const token = localStorage.getItem("token");
+  console.log("token-app", token);
 
   // const [deletepost,responseinfo]=useDeleteMutation();
 
@@ -28,24 +32,60 @@ function App() {
     <div className=" h-screen content-center  p-3 bg-slate-500 overflow-auto     ">
       {/* Uncomment this after */}
       <Routes>
+        {/* <Route
+          path="/"
+          element={
+            token ? <Crud /> : <Login login={login} setlogin={setlogin} />
+          }
+        /> */}
+
         <Route
           path="/"
           element={
-            login ? <Crud /> : <Login login={login} setlogin={setlogin} />
+            token ? (
+              <Crud login={login} setlogin={setlogin} />
+            ) : (
+              <Login login={login} setlogin={setlogin} />
+            )
           }
         />
+
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/crud"
+          element={
+            token ? (
+              <Crud login={login} setlogin={setlogin} />
+            ) : (
+              <Login login={login} setlogin={setlogin} />
+            )
+          }
+        />
+        <Route
+          path="/custom"
+          element={
+            token ? <Custome /> : <Login login={login} setlogin={setlogin} />
+          }
+        />
 
         <Route
           path="/login"
           element={
-            login ? <Crud /> : <Login login={login} setlogin={setlogin} />
+            token ? (
+              <Crud login={login} setlogin={setlogin} />
+            ) : (
+              <Login login={login} setlogin={setlogin} />
+            )
           }
         />
 
         <Route path="/add-user" element={<AddUser />} />
         <Route path="/edit-user/:id" element={<EditUser />} />
       </Routes>
+      {localStorage.getItem("token")
+        ? console.log("ha zala")
+        : console.log("no nahi zala")}
+
       {/* Uncomment above after */}
       {/* <Routes>
         <Route path="/" element={<Crud />} />
