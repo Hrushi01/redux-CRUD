@@ -9,14 +9,18 @@ import Show from "./pages/Show.jsx";
 import AddUser from "./reducers/AddData.jsx";
 import EditUser from "./reducers/Edituser.jsx";
 import Addnew from "./pages/Addnew.jsx";
-import { useCreatePostMutation } from "./services/post.jsx";
 import Custome from "./pages/Custome.jsx";
+import { useCreatePostMutation } from "./services/post.jsx";
+import AddAuth from "./Auth/AddAuth.jsx";
+import NoAuth from "./Auth/NoAuth.jsx";
 
 function App() {
-  const [login, setlogin] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  // const [login, setlogin] = useState(false);
   const [singup, setsingup] = useState(false);
-  const token = localStorage.getItem("token");
-  console.log("token-app", token);
+
+  // console.log("token-app", token);
 
   // const [deletepost,responseinfo]=useDeleteMutation();
 
@@ -28,100 +32,20 @@ function App() {
 
   // if (responseinfo.isLoading) return <div>LODING.......</div>;
 
+  const login = (e) => {
+    // axios call
+    setToken(e);
+    localStorage.setItem("token", e);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
+
   return (
     <div className=" h-screen content-center  p-3 bg-slate-500 overflow-auto     ">
-      {/* Uncomment this after */}
-      <Routes>
-        {/* <Route
-          path="/"
-          element={
-            token ? <Crud /> : <Login login={login} setlogin={setlogin} />
-          }
-        /> */}
-
-        <Route
-          path="/"
-          element={
-            token ? (
-              <Crud login={login} setlogin={setlogin} />
-            ) : (
-              <Login login={login} setlogin={setlogin} />
-            )
-          }
-        />
-
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/crud"
-          element={
-            token ? (
-              <Crud login={login} setlogin={setlogin} />
-            ) : (
-              <Login login={login} setlogin={setlogin} />
-            )
-          }
-        />
-        <Route
-          path="/custom"
-          element={
-            login ? (
-              <Custome login={login} setlogin={setlogin} />
-            ) : (
-              <Login login={login} setlogin={setlogin} />
-            )
-          }
-        />
-
-        <Route
-          path="/login"
-          element={
-            token ? (
-              <Crud login={login} setlogin={setlogin} />
-            ) : (
-              <Login login={login} setlogin={setlogin} />
-            )
-          }
-        />
-
-        <Route path="/add-user" element={<AddUser />} />
-        <Route path="/edit-user/:id" element={<EditUser />} />
-      </Routes>
-      {localStorage.getItem("token")
-        ? console.log("ha zala")
-        : console.log("no nahi zala")}
-
-      {/* Uncomment above after */}
-      {/* <Routes>
-        <Route path="/" element={<Crud />} />
-      </Routes> */}
-
-      {/* {login ? <Crud /> : <Login login={login} setlogin={setlogin} />} */}
-      {/* <Crud /> */}
-
-      {/* <Crud /> */}
-      {/* <Login /> */}
-      {/* <Signup /> */}
-
-      {/* <div className="font-bold w-screen content-center flex justify-center">
-        Displaying all data
-      </div>
-      {realdata.map((val,key) => (
-        <div key={key}>
-        <img src={val.avatar} alt="" />
-        <div>{val.id}) {val.first_name}</div>
-        <hr />
-        </div>
-      ))} */}
-
-      {/* searched data */}
-
-      {/* <div>Searched data is:{realid.id}) {realid.first_name}</div>
-      {console.log("dayayyy",realid.id)} */}
-
-      {/* delete data */}
-      {/* <div>Deleting:
-          <button onClick={()=>{deletepost(2)}} className="bg-cyan-200 h-10 border-solid border-r-black w-10">DEL</button>
-        </div> */}
+      {token ? <AddAuth logout={logout} /> : <NoAuth login={login} />}
     </div>
   );
 }

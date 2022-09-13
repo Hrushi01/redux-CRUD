@@ -56,7 +56,7 @@ export default function Addnew(props) {
       </div>
       <div className="flex gap-4">
         <Button onClick={() => createPost(newpost)}>
-          <Link to={"/"}>Add user</Link>
+          <Link to={"/add-user"}>Add user</Link>
         </Button>
       </div>
     </>

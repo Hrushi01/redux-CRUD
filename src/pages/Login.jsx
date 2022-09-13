@@ -10,7 +10,8 @@ import Crud from "../components/Crud";
 import { render } from "@testing-library/react";
 
 export default function Login(props) {
-  const { login, setlogin } = props;
+  // const { login, setlogin } = props;
+  const { login } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -35,12 +36,7 @@ export default function Login(props) {
         password: password,
       })
       .then((results) => {
-        setlogin(true);
-        console.log("logiiiin data t", results);
-        localStorage.setItem("token", results.data.token);
-        setTimeout(() => {
-          localStorage.removeItem("token");
-        }, 3600000);
+        login(results.data.token);
 
         // <div>Hekko</div>
       })
@@ -56,21 +52,21 @@ export default function Login(props) {
   //   </div>
   // );
 
-  const loginn = () => {
-    if (token == null) {
-    } else {
-      return <Navigate to={"/crud"} />;
-    }
-  };
+  // const loginn = () => {
+  //   if (token == null) {
+  //   } else {
+  //     return <Navigate to={"/crud"} />;
+  //   }
+  // };
 
-  useEffect(() => {
-    loginn();
-  }, [login, token]);
+  // useEffect(() => {
+  //   loginn();
+  // }, [login, token]);
 
-  if (token == null) {
-  } else {
-    return <Navigate to={"/crud"} />;
-  }
+  // if (token == null) {
+  // } else {
+  //   return <Navigate to={"/crud"} />;
+  // }
   return (
     <div className="pt-4 mx-auto  content-center max-w-2xl flex justify-center bg-slate-300">
       <div>

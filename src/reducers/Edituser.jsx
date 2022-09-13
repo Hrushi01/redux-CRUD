@@ -26,7 +26,7 @@ const EditUser = () => {
         email: values.email,
       })
     );
-    navigate("/");
+    navigate("/custom");
   };
 
   return (

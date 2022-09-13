@@ -16,7 +16,7 @@ import { store2 } from "../store2";
 import Custome from "../pages/Custome";
 
 export default function Crud(props) {
-  const { login, setlogin } = props;
+  const { logout } = props;
 
   const token = localStorage.getItem("token");
   const render = () => {
@@ -28,13 +28,13 @@ export default function Crud(props) {
 
   useEffect(() => {
     render();
-  }, [login]);
+  }, [logout]);
 
   return (
     <div>
       <div>
         <Provider store={store2}>
-          <Show login={login} setlogin={setlogin} />
+          <Show logout={logout} />
         </Provider>
       </div>
     </div>

@@ -47,7 +47,7 @@ export default function Custome(props) {
         <Routes>
           <Route path="/" element={<UserList />} />
           <Route path="/add-user" element={<AddData />} />
-          <Route path="/edit-user/:id" element={<Edituser />} />
+          <Route path="/custom/edit-user/:id" element={<Edituser />} />
         </Routes>
       </div>
     </div>

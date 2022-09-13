@@ -5,6 +5,8 @@ import {
   useDeleteMutation,
   useCreatePostMutation,
 } from "../services/post";
+import { v4 as uuidv4 } from "uuid";
+
 import { useState, useEffect } from "react";
 import "./Show.css";
 import Button from "../components/Button";
@@ -17,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 function Show(props) {
   const navigate = useNavigate();
+  const { logout } = props;
   const { login, setlogin } = props;
   const { data, isLoading, isSuccess } = useGetAllPostQuery();
   const [add, setadd] = useState(false);
@@ -27,9 +30,9 @@ function Show(props) {
   const [newjob, setnewjob] = useState("");
 
   const [deletepost, resp] = useDeleteMutation();
-  // console.log("Success", resp.isSuccess);
+  // console.log("Delete Success Status", resp.isSuccess);
   const [createPost, ress] = useCreatePostMutation();
-  // console.log("ress", ress);
+  // console.log("ress", resp);
 
   const realdata = data;
   const i = 0;
@@ -42,15 +45,13 @@ function Show(props) {
 
   const newd = () => {
     // newpost.push({ name: newname, job: newjob });
-    JSON.push({ name: newname, job: newjob });
+    JSON.push({ id: uuidv4(), name: newname, job: newjob });
   };
-  const logout = () => {
-    localStorage.removeItem("token");
-    setlogin(false);
-    console.log("logindddd", login);
-    setlogo(token);
-    navigate("/login");
+  const delnew = (e) => {
+    const de = delete newpost[2];
+    console.log("AFTER _dele", de);
   };
+
   const token = localStorage.getItem("token");
 
   // testing api not available for delete
@@ -64,7 +65,7 @@ function Show(props) {
   }, [logo]);
 
   const render = () => {
-    console.log("is called toc", token);
+    // console.log("is called toc", token);
     if (token) {
     } else {
       setlogin(false);
@@ -72,14 +73,7 @@ function Show(props) {
   };
 
   const switchh = () => {
-    if (login) {
-      console.log("s");
-      return <Navigate to={"/custom"} />;
-    } else {
-      console.log("ss");
-
-      navigate("/login");
-    }
+    navigate("/custom");
     // return <Navigate to={"/login"} />;
   };
 
@@ -88,21 +82,21 @@ function Show(props) {
       <div className="bg-slate-600 container mx-auto px-2 max-w-4xl pt-10 py-2 ">
         <div className="container mx-auto px-2  pt-4   bg-slate-300 overflow-scroll">
           <div className=" bg-slate-400 p-3 flex justify-between">
-            <Link
+            {/* <Link
               to={login ? "/custom" : "login"}
               className="bg-indigo-600 text-white rounded h-10 py-2 px-5 hover:bg-slate-200 mt-3 mb-3 "
 
               // className="bg-indigo-600 mr-1  text-white py-2 px-5 my-10 rounded hover:bg-indigo-200"
             >
               Custome data
-            </Link>
-            {/* <Button
+            </Link> */}
+            <Button
               onClick={() => {
                 switchh();
               }}
             >
-              Custom , data
-            </Button> */}
+              Custom data
+            </Button>
 
             <h2 className="text-center pt-5 font-bold font-serif text-2xl text-gray-700">
               Data from Api
@@ -202,7 +196,10 @@ function Show(props) {
                                 {val.name}
                               </div>
                               <div className="flex gap-4">
-                                <button className="">
+                                <button
+                                  className=""
+                                  onClick={() => delnew(val.id)}
+                                >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6"
