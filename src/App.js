@@ -64,7 +64,11 @@ function App() {
         <Route
           path="/custom"
           element={
-            token ? <Custome /> : <Login login={login} setlogin={setlogin} />
+            login ? (
+              <Custome login={login} setlogin={setlogin} />
+            ) : (
+              <Login login={login} setlogin={setlogin} />
+            )
           }
         />
 
