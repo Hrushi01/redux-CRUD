@@ -65,7 +65,7 @@ export default function Login(props) {
 
   useEffect(() => {
     loginn();
-  }, [login]);
+  }, [login, token]);
 
   if (token == null) {
   } else {

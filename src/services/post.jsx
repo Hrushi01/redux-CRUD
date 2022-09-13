@@ -9,7 +9,7 @@ export const postApi = createApi({
   endpoints: (builder) => ({
     getAllPost: builder.query({
       query: () => ({
-        url: "api/users?page=2",
+        url: "api/unknown",
         method: "GET",
       }),
     }),

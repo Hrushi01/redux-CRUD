@@ -8,8 +8,9 @@ import {
 } from "../services/post";
 import UserList from "../reducers/List.jsx";
 import Edituser from "../reducers/Edituser";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Custome(props) {
   const { login, setlogin } = props;

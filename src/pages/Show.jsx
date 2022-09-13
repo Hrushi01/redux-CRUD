@@ -46,8 +46,10 @@ function Show(props) {
   };
   const logout = () => {
     localStorage.removeItem("token");
+    setlogin(false);
+    console.log("logindddd", login);
     setlogo(token);
-    navigate("/");
+    navigate("/login");
   };
   const token = localStorage.getItem("token");
 
@@ -70,11 +72,15 @@ function Show(props) {
   };
 
   const switchh = () => {
-    if (token) {
-      <Navigate to={"/custom"} />;
+    if (login) {
+      console.log("s");
+      return <Navigate to={"/custom"} />;
     } else {
-      <Navigate to={"/login"} />;
+      console.log("ss");
+
+      navigate("/login");
     }
+    // return <Navigate to={"/login"} />;
   };
 
   return (
@@ -82,21 +88,21 @@ function Show(props) {
       <div className="bg-slate-600 container mx-auto px-2 max-w-4xl pt-10 py-2 ">
         <div className="container mx-auto px-2  pt-4   bg-slate-300 overflow-scroll">
           <div className=" bg-slate-400 p-3 flex justify-between">
-            {/* <Link
-              to={"/custom"}
+            <Link
+              to={login ? "/custom" : "login"}
               className="bg-indigo-600 text-white rounded h-10 py-2 px-5 hover:bg-slate-200 mt-3 mb-3 "
 
               // className="bg-indigo-600 mr-1  text-white py-2 px-5 my-10 rounded hover:bg-indigo-200"
             >
               Custome data
-            </Link> */}
-            <Button
+            </Link>
+            {/* <Button
               onClick={() => {
                 switchh();
               }}
             >
               Custom , data
-            </Button>
+            </Button> */}
 
             <h2 className="text-center pt-5 font-bold font-serif text-2xl text-gray-700">
               Data from Api
@@ -136,18 +142,19 @@ function Show(props) {
                   {isSuccess &&
                     data &&
                     data.data.map((val, key) => (
-                      <>
+                      <div key={key}>
                         <div
                           key={key}
                           className="bg-gray-300 p-5 my-2 flex items-center justify-between"
                         >
-                          <img
+                          {/* <img
                             src={val.avatar}
                             alt="img"
                             className="p-0 h-20 w-20"
-                          />
+                          /> */}
+                          <div className="p-0 h-20 w-20">{val.year}</div>
                           <div className="font-bold text-lg text-gray-700   w-20 ">
-                            {val.first_name}
+                            {val.name}
                           </div>
 
                           {/* deletedown */}
@@ -174,7 +181,7 @@ function Show(props) {
 
                           <hr />
                         </div>
-                      </>
+                      </div>
                     ))}
 
                   <div>
@@ -186,12 +193,13 @@ function Show(props) {
                               key={key}
                               className="bg-gray-300 p-5 my-2 flex items-center justify-between"
                             >
-                              <img
+                              {/* <img
                                 alt="IMG"
                                 className="p-0 bg-red-400 h-20 w-20"
-                              ></img>
+                              ></img> */}
+                              <div className="p-0  h-20 w-20">{val.job}</div>
                               <div className="font-bold text-lg text-gray-700 w-20 ">
-                                {val.name} is a {val.job}
+                                {val.name}
                               </div>
                               <div className="flex gap-4">
                                 <button className="">
@@ -247,10 +255,13 @@ function Show(props) {
           ></input> */}
                   <div>
                     <TextField
-                      label="Job:"
+                      label="Birth year:"
                       value={newjob}
                       onChange={(e) => setnewjob(e.target.value)}
-                      inputProps={{ type: "text", placeholder: "Enter Job..." }}
+                      inputProps={{
+                        type: "text",
+                        placeholder: "Enter Birth year...",
+                      }}
                     />
                   </div>
 
