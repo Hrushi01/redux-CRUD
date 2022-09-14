@@ -1,13 +1,9 @@
 import React from "react";
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
-// import { Result } from "postcss";
-// import {useHistory} from 'react-router-dom';
+
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
-import List from "../reducers/List";
-import Crud from "../components/Crud";
-import { render } from "@testing-library/react";
 
 export default function Login(props) {
   // const { login, setlogin } = props;
@@ -29,7 +25,7 @@ export default function Login(props) {
 
   const handler = async () => {
     let item = { email, password };
-    console.log(item);
+    console.log(item.email);
     axios
       .post("https://reqres.in/api/login", {
         email: email,
@@ -37,8 +33,6 @@ export default function Login(props) {
       })
       .then((results) => {
         login(results.data.token);
-
-        // <div>Hekko</div>
       })
       .catch((err) => {
         console.log(err);
@@ -105,15 +99,8 @@ export default function Login(props) {
           <Link to={"/signup"}>
             <Button>Signup</Button>
           </Link>
-
-          {/* <Button
-            // className="mx-0 p-0 mt-0 pt-0"
-            onClick={() => setlogin(false)}
-          >
-            Logout
-          </Button> */}
         </div>
-        {login == true ? {} : console.log("USER IS NOT LOGGED IN")}
+        {login == true ? {} : console.warn("USER IS NOT LOGGED IN")}
       </div>
     </div>
   );

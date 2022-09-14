@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import "./Show.css";
 import Button from "../components/Button";
 import JSON from "../json.json";

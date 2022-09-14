@@ -35,34 +35,28 @@ function Show(props) {
   // console.log("ress", resp);
 
   const realdata = data;
-  const i = 0;
+  console.log("ress", realdata);
 
   const [show, setshow] = useState("first");
 
   const newpost = JSON;
   // console.log(newpost, "newpost");
-  const run = () => {};
 
   const newd = () => {
     // newpost.push({ name: newname, job: newjob });
     JSON.push({ id: uuidv4(), name: newname, job: newjob });
   };
   const delnew = (e) => {
-    const de = delete newpost[2];
-    console.log("AFTER _dele", de);
+    delete newpost[e];
+    delete JSON[e];
+    console.log("Delete id", e);
   };
 
   const token = localStorage.getItem("token");
 
-  // testing api not available for delete
-  // testing api not available for delete
-  // testing api not available for delete
-  // const deleter = (e) => {
-  //   console.log(e, "id deleted");
-  // };
-  useEffect(() => {
-    render();
-  }, [logo]);
+  // useEffect(() => {
+  //   render();
+  // }, [logo]);
 
   const render = () => {
     // console.log("is called toc", token);
@@ -82,14 +76,6 @@ function Show(props) {
       <div className="bg-slate-600 container mx-auto px-2 max-w-4xl pt-10 py-2 ">
         <div className="container mx-auto px-2  pt-4   bg-slate-300 overflow-scroll">
           <div className=" bg-slate-400 p-3 flex justify-between">
-            {/* <Link
-              to={login ? "/custom" : "login"}
-              className="bg-indigo-600 text-white rounded h-10 py-2 px-5 hover:bg-slate-200 mt-3 mb-3 "
-
-              // className="bg-indigo-600 mr-1  text-white py-2 px-5 my-10 rounded hover:bg-indigo-200"
-            >
-              Custome data
-            </Link> */}
             <Button
               onClick={() => {
                 switchh();
@@ -110,12 +96,6 @@ function Show(props) {
             </Button>
           </div>
 
-          {/* <Button
-            // className="mx-0 p-0 mt-0 pt-0"
-            onClick={() => setlogin(false)}
-          >
-            Logout
-          </Button> */}
           <div className="py-5">
             <Button onClick={() => setshow("Next")}>Show data</Button>
 
@@ -129,10 +109,6 @@ function Show(props) {
                   {/* {console.log("1")} */}
                   {isLoading ? "Please wait Loading...." : <>User List</>}
 
-                  {/* {isSuccess
-                ? console.log("YES", isSuccess)
-                : console.log("NO", isSuccess)} */}
-                  {/* {console.log("3")} */}
                   {isSuccess &&
                     data &&
                     data.data.map((val, key) => (
@@ -141,11 +117,6 @@ function Show(props) {
                           key={key}
                           className="bg-gray-300 p-5 my-2 flex items-center justify-between"
                         >
-                          {/* <img
-                            src={val.avatar}
-                            alt="img"
-                            className="p-0 h-20 w-20"
-                          /> */}
                           <div className="p-0 h-20 w-20">{val.year}</div>
                           <div className="font-bold text-lg text-gray-700   w-20 ">
                             {val.name}
@@ -187,10 +158,6 @@ function Show(props) {
                               key={key}
                               className="bg-gray-300 p-5 my-2 flex items-center justify-between"
                             >
-                              {/* <img
-                                alt="IMG"
-                                className="p-0 bg-red-400 h-20 w-20"
-                              ></img> */}
                               <div className="p-0  h-20 w-20">{val.job}</div>
                               <div className="font-bold text-lg text-gray-700 w-20 ">
                                 {val.name}
@@ -228,11 +195,6 @@ function Show(props) {
 
               <div className={add ? "Display" : "first"}>
                 <div className="pt-4 mx-auto  content-center p-5 max-w-4xl flex flex-col justify-center bg-slate-500">
-                  {/* <input
-            placeholder="name"
-            value={newname}
-            onChange={(e) => setnewname(e.target.value)}
-          ></input> */}
                   <div className="pt-2 font-serif pl-0 pb-3 text-xl">
                     Enter Details of new User
                   </div>
@@ -245,11 +207,6 @@ function Show(props) {
                     />
                   </div>
 
-                  {/* <input
-            placeholder="job"
-            value={newjob}
-            onChange={(e) => setnewjob(e.target.value)}
-          ></input> */}
                   <div>
                     <TextField
                       label="Birth year:"

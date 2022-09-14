@@ -1,20 +1,13 @@
 import React from "react";
-import Crud from "./components/Crud.jsx";
-import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup.jsx";
-import { Route, Routes, Redirect } from "react-router-dom";
-import { useState } from "react";
 
-import Show from "./pages/Show.jsx";
-import AddUser from "./reducers/AddData.jsx";
-import EditUser from "./reducers/Edituser.jsx";
-import Addnew from "./pages/Addnew.jsx";
-import Custome from "./pages/Custome.jsx";
-import { useCreatePostMutation } from "./services/post.jsx";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import AddAuth from "./Auth/AddAuth.jsx";
 import NoAuth from "./Auth/NoAuth.jsx";
 
 function App() {
+  const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   // const [login, setlogin] = useState(false);
@@ -41,6 +34,7 @@ function App() {
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
+    navigate("/");
   };
 
   return (
