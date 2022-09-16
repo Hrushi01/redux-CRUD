@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   useGetAllPostQuery,
   useGetByIDQuery,
@@ -16,11 +16,13 @@ import JSON from "../json.json";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Show(props) {
   const navigate = useNavigate();
   const { logout } = props;
   const { login, setlogin } = props;
+  const [real, setreal] = useState("");
   const { data, isLoading, isSuccess } = useGetAllPostQuery();
   const [add, setadd] = useState(false);
   const [logo, setlogo] = useState("");
@@ -30,20 +32,34 @@ function Show(props) {
   const [newjob, setnewjob] = useState("");
 
   const [deletepost, resp] = useDeleteMutation();
-  // console.log("Delete Success Status", resp.isSuccess);
+  console.log("After delete data", resp.status);
+
   const [createPost, ress] = useCreatePostMutation();
   // console.log("ress", resp);
 
-  const realdata = data;
-  console.log("ress", realdata);
+  let realdata = data;
+  console.log("Before delete data", realdata);
 
   const [show, setshow] = useState("first");
 
   const newpost = JSON;
   // console.log(newpost, "newpost");
 
+  // const deldata = (id) => {
+  //   axios.delete(`https://reqres.in/api/users/${id}`).then((results) => {
+  //     console.log(results);
+  //   });
+  // };
+
+  const final = (e) => {
+    deletepost(e);
+
+    const up = realdata.data.filter((data) => data.id != e);
+    realdata = up;
+    // const up= realdata.filter((id)=> )
+  };
+
   const newd = () => {
-    // newpost.push({ name: newname, job: newjob });
     JSON.push({ id: uuidv4(), name: newname, job: newjob });
   };
   const delnew = (e) => {
@@ -53,18 +69,6 @@ function Show(props) {
   };
 
   const token = localStorage.getItem("token");
-
-  // useEffect(() => {
-  //   render();
-  // }, [logo]);
-
-  const render = () => {
-    // console.log("is called toc", token);
-    if (token) {
-    } else {
-      setlogin(false);
-    }
-  };
 
   const switchh = () => {
     navigate("/custom");
@@ -110,8 +114,8 @@ function Show(props) {
                   {isLoading ? "Please wait Loading...." : <>User List</>}
 
                   {isSuccess &&
-                    data &&
-                    data.data.map((val, key) => (
+                    realdata &&
+                    realdata.data.map((val, key) => (
                       <div key={key}>
                         <div
                           key={key}
@@ -124,7 +128,7 @@ function Show(props) {
 
                           {/* deletedown */}
                           <div className="flex gap-4">
-                            <button onClick={() => deletepost(val.id)}>
+                            <button onClick={() => final(val.id)}>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-6 w-6"

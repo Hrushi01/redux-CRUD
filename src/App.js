@@ -45,3 +45,30 @@ function App() {
 }
 
 export default App;
+
+// import React from "react";
+// import { Routes,Route, Link, } from "react-router-dom";
+// // import { useContactsQuery } from "./servicess/api";
+// import Students from "./servicess/Students";
+// import Addstudent from "./servicess/Addstudent";
+// import EditStudent from "./servicess/EditStudent";
+// export default function App() {
+// //  const {data,error,isLoading,isFetching,isSuccess }=useContactsQuery()
+
+
+
+//   return (
+//     <div>
+//       <Link to={"/students/add"}>Add New</Link>
+     
+//           <Routes>
+//             <Route exact path="/" element={<Students/>} />
+//             <Route exact path="/students/add" element={<Addstudent/>} />
+//             <Route exact path="/students/edit/:id" element={<EditStudent/>} />
+            
+//             </Routes>
+
+
+
+//   </div>)
+// }

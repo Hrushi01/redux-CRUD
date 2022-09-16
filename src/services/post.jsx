@@ -42,6 +42,15 @@ export const postApi = createApi({
         };
       },
     }),
+    updateContact: builder.mutation({
+      query: (id) => {
+        console.log("delete id", id);
+        return {
+          url: `api/users/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
 
