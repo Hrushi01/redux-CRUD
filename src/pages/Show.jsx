@@ -1,79 +1,83 @@
 import React, { useRef } from "react";
 import {
   useGetAllPostQuery,
-  useGetByIDQuery,
   useDeleteMutation,
   useCreatePostMutation,
 } from "../services/post";
+import JSON from "../json.json";
 import { v4 as uuidv4 } from "uuid";
 
 import { useState, useEffect } from "react";
 import "./Show.css";
 import Button from "../components/Button";
-import Login from "./Login";
+
 import TextField from "../components/TextField";
-import JSON from "../json.json";
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function Show(props) {
   const navigate = useNavigate();
   const { logout } = props;
-  const { login, setlogin } = props;
-  const [real, setreal] = useState("");
+
   const { data, isLoading, isSuccess } = useGetAllPostQuery();
   const [add, setadd] = useState(false);
-  const [logo, setlogo] = useState("");
 
   const [newname, setnewname] = useState("");
-  // console.log("new dattttaata", JSON);
   const [newjob, setnewjob] = useState("");
 
   const [deletepost, resp] = useDeleteMutation();
-  console.log("After delete data", resp.status);
 
   const [createPost, ress] = useCreatePostMutation();
-  // console.log("ress", resp);
-
-  let realdata = data;
-  console.log("Before delete data", realdata);
 
   const [show, setshow] = useState("first");
 
   const newpost = JSON;
-  // console.log(newpost, "newpost");
-
-  // const deldata = (id) => {
-  //   axios.delete(`https://reqres.in/api/users/${id}`).then((results) => {
-  //     console.log(results);
-  //   });
-  // };
+  const [realdata, setRealData] = useState(null);
+  const [deleteId, setDeleteId] = useState("");
+  const [custdeleteId, setCustDeleteId] = useState("");
 
   const final = (e) => {
     deletepost(e);
-
-    const up = realdata.data.filter((data) => data.id != e);
-    realdata = up;
-    // const up= realdata.filter((id)=> )
+    setDeleteId(e);
   };
+  const [custom, setCustom] = useState(JSON);
+  console.log("custom d", custom);
 
   const newd = () => {
     JSON.push({ id: uuidv4(), name: newname, job: newjob });
   };
-  const delnew = (e) => {
-    delete newpost[e];
-    delete JSON[e];
-    console.log("Delete id", e);
-  };
 
-  const token = localStorage.getItem("token");
+  useEffect(() => {
+    setCustom(ress);
+  }, [ress]);
+
+  const delnew = (e) => {
+    console.log("custom.da", custom.data);
+
+    setCustom({
+      ...custom,
+      data: custom?.data?.filter((data) => data.id != e),
+    });
+    console.log("custom.da after ", custom.data);
+  };
 
   const switchh = () => {
     navigate("/custom");
-    // return <Navigate to={"/login"} />;
   };
+
+  useEffect(() => {
+    setRealData(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (resp.status === "fulfilled") {
+      setRealData({
+        ...realdata,
+        data: realdata.data.filter((data) => data.id != deleteId),
+      });
+      console.log("realdata", realdata);
+    }
+  }, [resp]);
 
   return (
     <>
@@ -107,10 +111,7 @@ function Show(props) {
 
             <div className={show === "Next" ? "Next" : "first"}>
               <div className="container mx-auto px-2 max-w-4xl pt-10 py-2  bg-slate-400">
-                <div
-                //  className="bg-gray-300 p-5 mx-3 flex items-center justify-between"
-                >
-                  {/* {console.log("1")} */}
+                <div>
                   {isLoading ? "Please wait Loading...." : <>User List</>}
 
                   {isSuccess &&
@@ -126,8 +127,7 @@ function Show(props) {
                             {val.name}
                           </div>
 
-                          {/* deletedown */}
-                          <div className="flex gap-4">
+                          <div className="flex gap-4 bg-orange-600">
                             <button onClick={() => final(val.id)}>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -146,8 +146,6 @@ function Show(props) {
                             </button>
                           </div>
 
-                          {/* deleteabove */}
-
                           <hr />
                         </div>
                       </div>
@@ -156,7 +154,7 @@ function Show(props) {
                   <div>
                     <div>
                       {ress.isSuccess &&
-                        ress.data.map((val, key) => {
+                        custom?.data?.map((val, key) => {
                           return (
                             <div
                               key={key}
