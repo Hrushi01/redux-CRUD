@@ -1,13 +1,13 @@
 import React from "react";
 // import Create from "./Create";
-import AddData from "../reducers/AddData.jsx";
+import AddData from "../custom services/AddData";
 import {
   useGetAllPostQuery,
   useGetByIDQuery,
   useDeleteMutation,
 } from "../services/post";
-import UserList from "../reducers/List.jsx";
-import Edituser from "../reducers/Edituser";
+import UserList from "../custom services/List";
+import Edituser from "../custom services/Edituser";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
