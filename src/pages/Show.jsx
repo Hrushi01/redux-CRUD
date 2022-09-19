@@ -20,21 +20,19 @@ function Show(props) {
   const { logout } = props;
 
   const { data, isLoading, isSuccess } = useGetAllPostQuery();
+  const [deletepost, resp] = useDeleteMutation();
+  const [createPost, ress] = useCreatePostMutation();
+
   const [add, setadd] = useState(false);
 
   const [newname, setnewname] = useState("");
   const [newjob, setnewjob] = useState("");
-
-  const [deletepost, resp] = useDeleteMutation();
-
-  const [createPost, ress] = useCreatePostMutation();
 
   const [show, setshow] = useState("first");
 
   const newpost = JSON;
   const [realdata, setRealData] = useState(null);
   const [deleteId, setDeleteId] = useState("");
-  const [custdeleteId, setCustDeleteId] = useState("");
 
   const final = (e) => {
     deletepost(e);
@@ -127,7 +125,7 @@ function Show(props) {
                             {val.name}
                           </div>
 
-                          <div className="flex gap-4 bg-orange-600">
+                          <div className="flex gap-4">
                             <button onClick={() => final(val.id)}>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"

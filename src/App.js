@@ -10,23 +10,11 @@ function App() {
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  // const [login, setlogin] = useState(false);
   const [singup, setsingup] = useState(false);
 
-  // console.log("token-app", token);
-
-  // const [deletepost,responseinfo]=useDeleteMutation();
-
-  // const responsebyid = useGetByIDQuery(10);
-  // const realid=responsebyid.data.data;
-  // console.log("data", responsebyid.data.data);
-  // const realdata = responseinfo.data.data;
-  //
-
-  // if (responseinfo.isLoading) return <div>LODING.......</div>;
+ 
 
   const login = (e) => {
-    // axios call
     setToken(e);
     localStorage.setItem("token", e);
   };
@@ -46,29 +34,4 @@ function App() {
 
 export default App;
 
-// import React from "react";
-// import { Routes,Route, Link, } from "react-router-dom";
-// // import { useContactsQuery } from "./servicess/api";
-// import Students from "./servicess/Students";
-// import Addstudent from "./servicess/Addstudent";
-// import EditStudent from "./servicess/EditStudent";
-// export default function App() {
-// //  const {data,error,isLoading,isFetching,isSuccess }=useContactsQuery()
 
-
-
-//   return (
-//     <div>
-//       <Link to={"/students/add"}>Add New</Link>
-     
-//           <Routes>
-//             <Route exact path="/" element={<Students/>} />
-//             <Route exact path="/students/add" element={<Addstudent/>} />
-//             <Route exact path="/students/edit/:id" element={<EditStudent/>} />
-            
-//             </Routes>
-
-
-
-//   </div>)
-// }
