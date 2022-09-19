@@ -13,7 +13,7 @@
 // });
 // setupListeners(store.dispatch);
 import { configureStore } from "@reduxjs/toolkit";
-import usersReducer from "./reducers/userSlice";
+import usersReducer from "./custom services/userSlice";
 
 export const store = configureStore({
   reducer: {

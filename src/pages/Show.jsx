@@ -39,7 +39,6 @@ function Show(props) {
     setDeleteId(e);
   };
   const [custom, setCustom] = useState(JSON);
-  console.log("custom d", custom);
 
   const newd = () => {
     JSON.push({ id: uuidv4(), name: newname, job: newjob });
@@ -50,13 +49,10 @@ function Show(props) {
   }, [ress]);
 
   const delnew = (e) => {
-    console.log("custom.da", custom.data);
-
     setCustom({
       ...custom,
       data: custom?.data?.filter((data) => data.id != e),
     });
-    console.log("custom.da after ", custom.data);
   };
 
   const switchh = () => {
@@ -73,7 +69,6 @@ function Show(props) {
         ...realdata,
         data: realdata.data.filter((data) => data.id != deleteId),
       });
-      console.log("realdata", realdata);
     }
   }, [resp]);
 
