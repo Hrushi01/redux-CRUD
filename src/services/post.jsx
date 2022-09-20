@@ -21,7 +21,6 @@ export const postApi = createApi({
     }),
     createPost: builder.mutation({
       query: (newPost) => {
-        console.log("create-post", newPost);
         return {
           url: `api/users`,
           method: "POST",
@@ -42,12 +41,16 @@ export const postApi = createApi({
         };
       },
     }),
-    updateContact: builder.mutation({
-      query: (id) => {
-        console.log("delete id", id);
+    updatePost: builder.mutation({
+      query: (updatePostData) => {
+        console.log("updatePostData data", updatePostData);
+        const { id, ...data } = updatePostData;
+        console.log("updated data", data);
+
         return {
           url: `api/users/${id}`,
-          method: "DELETE",
+          method: "PUT",
+          body: data,
         };
       },
     }),
@@ -59,4 +62,5 @@ export const {
   useGetByIDQuery,
   useDeleteMutation,
   useCreatePostMutation,
+  useUpdatePostMutation,
 } = postApi;

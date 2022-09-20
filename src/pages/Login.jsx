@@ -2,30 +2,23 @@ import React from "react";
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 
 export default function Login(props) {
-  // const { login, setlogin } = props;
   const { login } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const history = useHistory()
-
-  // useEffect(() => {
-
-  //     if(localStorage.getItem('user-info')){
-  //         history.push('/add')
-
-  //     }
-
-  // }, [])
   let token = localStorage.getItem("token");
 
   const handler = async () => {
     let item = { email, password };
-    console.log(item.email);
+
+    // console.log(item.email);
     axios
       .post("https://reqres.in/api/login", {
         email: email,
@@ -33,34 +26,18 @@ export default function Login(props) {
       })
       .then((results) => {
         login(results.data.token);
+        toast.success("Login Successful", {
+          position: "top-left",
+        });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.code, "f");
+        toast.error(err.code, {
+          position: "top-left",
+        });
       });
   };
-  // const showdata = () => (
-  //   <div>
-  //     <Link to={"crud"}>
-  //       <Crud />
-  //     </Link>
-  //   </div>
-  // );
 
-  // const loginn = () => {
-  //   if (token == null) {
-  //   } else {
-  //     return <Navigate to={"/crud"} />;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   loginn();
-  // }, [login, token]);
-
-  // if (token == null) {
-  // } else {
-  //   return <Navigate to={"/crud"} />;
-  // }
   return (
     <div className="pt-4 mx-auto  content-center max-w-2xl flex justify-center bg-slate-300">
       <div>
@@ -100,6 +77,7 @@ export default function Login(props) {
             <Button>Signup</Button>
           </Link>
         </div>
+        <ToastContainer />
         {login == true ? {} : console.warn("USER IS NOT LOGGED IN")}
       </div>
     </div>

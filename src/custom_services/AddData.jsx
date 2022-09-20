@@ -5,6 +5,9 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import { addUser } from "./userSlice";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const AddUser = () => {
   const dispatch = useDispatch();
@@ -15,15 +18,20 @@ const AddUser = () => {
   });
 
   const handleAddUser = () => {
-    setValues({ name: "", email: "" });
-    dispatch(
-      addUser({
-        id: uuidv4(),
-        name: values.name,
-        email: values.email,
-      })
-    );
-    navigate("/custom");
+    if (values.email !== "" && values.name !== "") {
+      setValues({ name: "", email: "" });
+      dispatch(
+        addUser({
+          id: uuidv4(),
+          name: values.name,
+          email: values.email,
+        })
+      );
+      toast.success("Data addded");
+      navigate("/custom");
+    } else {
+      toast.error("Fields cannot be empty");
+    }
   };
 
   return (
@@ -47,6 +55,7 @@ const AddUser = () => {
         />
         <Button onClick={handleAddUser}>Submit</Button>
       </div>
+      <ToastContainer />
     </div>
   );
 };

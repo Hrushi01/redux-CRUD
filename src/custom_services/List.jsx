@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import { deleteUser } from "./userSlice";
 
+import { ToastContainer, toast } from "react-toastify";
+
 const UserList = () => {
   const dispatch = useDispatch();
   const users = useSelector((store) => store.users);
 
   const handleRemoveUser = (id) => {
     dispatch(deleteUser({ id }));
+    toast.success("Data Deleted");
   };
 
   const renderCard = () =>
@@ -74,6 +77,7 @@ const UserList = () => {
           </p>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

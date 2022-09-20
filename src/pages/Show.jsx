@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import {
   useGetAllPostQuery,
   useDeleteMutation,
   useCreatePostMutation,
+  useUpdatePostMutation,
 } from "../services/post";
 import JSON from "../json.json";
 import { v4 as uuidv4 } from "uuid";
@@ -13,7 +14,10 @@ import Button from "../components/Button";
 
 import TextField from "../components/TextField";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function Show(props) {
   const navigate = useNavigate();
@@ -22,10 +26,28 @@ function Show(props) {
   const { data, isLoading, isSuccess } = useGetAllPostQuery();
   const [deletepost, resp] = useDeleteMutation();
   const [createPost, ress] = useCreatePostMutation();
+  const [updatePost, responce] = useUpdatePostMutation();
+  // console.log("show update", updatePost);
+  // console.log("show update responce", responce);
+
+  // const update = (val) => {
+  //   // updatePost(updatePostData);
+  //   console.log("val,id", val, val.id);
+  // };
+  // const updatePostData = {
+  //   id: uuidv4(),
+  //   name: "newname",
+  //   job: "2001",
+  // };
 
   const [add, setadd] = useState(false);
+  const [two, settwo] = useState(false);
+  const [samename, setsamename] = useState("");
+  const [sameyear, setsameyear] = useState();
+  const [st, setst] = useState(null);
 
   const [newname, setnewname] = useState("");
+  const [updatedname, setupdatedname] = useState("");
   const [newjob, setnewjob] = useState("");
 
   const [show, setshow] = useState("first");
@@ -53,9 +75,11 @@ function Show(props) {
       ...custom,
       data: custom?.data?.filter((data) => data.id != e),
     });
+    toast.success("Data Deleted");
   };
 
   const switchh = () => {
+    toast.info("Switched to custom data");
     navigate("/custom");
   };
 
@@ -65,12 +89,36 @@ function Show(props) {
 
   useEffect(() => {
     if (resp.status === "fulfilled") {
+      toast.success("Data Deleted");
       setRealData({
         ...realdata,
         data: realdata.data.filter((data) => data.id != deleteId),
       });
     }
   }, [resp]);
+  const addhandeler = () => {
+    if (newjob != "" && newname != "") {
+      newd();
+      createPost(newpost);
+      console.log("create new post", createPost);
+      console.log("create ress", ress);
+      setadd(!add);
+      setnewjob("");
+      setnewname("");
+      toast.success("Data addded");
+    } else {
+      toast.error("Fields cannot be empty");
+    }
+  };
+
+  const updatehandeler = (e) => {
+    updatePost({ id: 1, name: samename, year: sameyear });
+    setst(realdata);
+    const result = realdata.find(() => {
+      return {};
+    });
+    console.log(st, "st");
+  };
 
   return (
     <>
@@ -137,6 +185,41 @@ function Show(props) {
                                 />
                               </svg>
                             </button>
+                            <button
+                              onClick={() => {
+                                console.log(newpost[val.id]);
+                              }}
+                            >
+                              btnn
+                            </button>
+
+                            {/* Update button down */}
+                            {/* Update button down */}
+                            <button
+                              to={`/edit-user/${val.id}`}
+                              onClick={() => {
+                                settwo(!two);
+                                console.log(val.id);
+                              }}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
+                              </svg>
+                            </button>
+                            {/* Update button up*/}
+                            {/* Update button up*/}
+                            {/* Update button up*/}
                           </div>
 
                           <hr />
@@ -217,9 +300,44 @@ function Show(props) {
                   <div>
                     <Button
                       onClick={() => {
-                        newd();
-                        createPost(newpost);
-                        setadd(!add);
+                        addhandeler();
+                      }}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className={two ? "Display" : "first"}>
+                <div className="pt-4 mx-auto  content-center p-5 max-w-4xl flex flex-col justify-center bg-slate-500">
+                  <div className="pt-2 font-serif pl-0 pb-3 text-xl">
+                    Enter EDITED Details
+                  </div>
+                  <div>
+                    <TextField
+                      label="Name:"
+                      value={samename}
+                      onChange={(e) => setsamename(e.target.value)}
+                      inputProps={{ type: "text", placeholder: "Update Name" }}
+                    />
+                  </div>
+
+                  <div>
+                    <TextField
+                      label="Birth year:"
+                      value={sameyear}
+                      onChange={(e) => setsameyear(e.target.value)}
+                      inputProps={{
+                        type: "number",
+                        placeholder: "Update Birth year...",
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <Button
+                      onClick={() => {
+                        updatehandeler(2);
                       }}
                     >
                       Save
@@ -231,6 +349,7 @@ function Show(props) {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
