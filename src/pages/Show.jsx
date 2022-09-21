@@ -28,23 +28,11 @@ function Show(props) {
   const [createPost, ress] = useCreatePostMutation();
 
   const [updatePost, responce] = useUpdatePostMutation();
-  // console.log("show update", updatePost);
-  console.log("show update responce", responce);
-
-  // const update = (val) => {
-  //   // updatePost(updatePostData);
-  //   console.log("val,id", val, val.id);
-  // };
-  // const updatePostData = {
-  //   id: uuidv4(),
-  //   name: "newname",
-  //   job: "2001",
-  // };
 
   const [add, setadd] = useState(false);
   const [two, settwo] = useState(false);
   const [samename, setsamename] = useState("");
-  const [sameyear, setsameyear] = useState();
+  const [sameyear, setsameyear] = useState(1);
   const [st, setst] = useState(null);
 
   const [newname, setnewname] = useState("");
@@ -97,6 +85,7 @@ function Show(props) {
       });
     }
   }, [resp]);
+
   const addhandeler = () => {
     if (newjob != "" && newname != "") {
       newd();
@@ -115,8 +104,47 @@ function Show(props) {
   const updatehandeler = (e) => {
     updatePost({ id: e, name: samename, year: sameyear });
 
-    console.log(responce, "responce");
+    // realdata.data.forEach(element => {
+
+    // });
+    console.log("element match==>", realdata);
+
+    // realdata.data.map((el) => {
+    //   if (el.id == st) {
+    //     el.name = samename;
+    //     console.log("el", el);
+    //   }
+    // }
+    // );
+    //  const up =realdata.data.forEach((element) => {
+    //   console.log(element,'ele'),
+    // }
+    // console.log("show update responce", responce),
+
+    // console.log(realdata, "<==realdata")
   };
+  // items: state.items.map((res) =>
+
+  //         res._id === action.payload ? { ...res, loading: true } : res
+
+  //       ),
+
+  useEffect(() => {
+    realdata ? (
+      setRealData({
+        ...realdata,
+        data: realdata?.data?.forEach((el) => {
+          if (el.id == st) {
+            el = responce?.data;
+            console.log("element match==>", realdata);
+            console.log("element match==>", el);
+          }
+        }),
+      })
+    ) : (
+      <></>
+    );
+  }, [responce]);
 
   return (
     <>
@@ -155,7 +183,7 @@ function Show(props) {
 
                   {isSuccess &&
                     realdata &&
-                    realdata.data.map((val, key) => (
+                    realdata?.data?.map((val, key) => (
                       <div key={key}>
                         <div
                           key={key}
