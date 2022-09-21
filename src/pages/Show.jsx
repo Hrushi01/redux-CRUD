@@ -26,9 +26,10 @@ function Show(props) {
   const { data, isLoading, isSuccess } = useGetAllPostQuery();
   const [deletepost, resp] = useDeleteMutation();
   const [createPost, ress] = useCreatePostMutation();
+
   const [updatePost, responce] = useUpdatePostMutation();
   // console.log("show update", updatePost);
-  // console.log("show update responce", responce);
+  console.log("show update responce", responce);
 
   // const update = (val) => {
   //   // updatePost(updatePostData);
@@ -112,12 +113,9 @@ function Show(props) {
   };
 
   const updatehandeler = (e) => {
-    updatePost({ id: 1, name: samename, year: sameyear });
-    setst(realdata);
-    const result = realdata.find(() => {
-      return {};
-    });
-    console.log(st, "st");
+    updatePost({ id: e, name: samename, year: sameyear });
+
+    console.log(responce, "responce");
   };
 
   return (
@@ -185,20 +183,15 @@ function Show(props) {
                                 />
                               </svg>
                             </button>
-                            <button
-                              onClick={() => {
-                                console.log(newpost[val.id]);
-                              }}
-                            >
-                              btnn
-                            </button>
 
                             {/* Update button down */}
                             {/* Update button down */}
                             <button
-                              to={`/edit-user/${val.id}`}
+                              // to={`/edit-user/${val.id}`}
                               onClick={() => {
+                                setadd(false);
                                 settwo(!two);
+                                setst(val.id);
                                 console.log(val.id);
                               }}
                             >
@@ -221,8 +214,6 @@ function Show(props) {
                             {/* Update button up*/}
                             {/* Update button up*/}
                           </div>
-
-                          <hr />
                         </div>
                       </div>
                     ))}
@@ -267,7 +258,14 @@ function Show(props) {
                         })}
                     </div>
                   </div>
-                  <Button onClick={() => setadd(!add)}>ADD New User</Button>
+                  <Button
+                    onClick={() => {
+                      setadd(!add);
+                      settwo(false);
+                    }}
+                  >
+                    ADD New User
+                  </Button>
                 </div>
               </div>
 
@@ -337,7 +335,7 @@ function Show(props) {
                   <div>
                     <Button
                       onClick={() => {
-                        updatehandeler(2);
+                        updatehandeler(st);
                       }}
                     >
                       Save

@@ -45,7 +45,7 @@ export const postApi = createApi({
       query: (updatePostData) => {
         console.log("updatePostData data", updatePostData);
         const { id, ...data } = updatePostData;
-        console.log("updated data", data);
+        console.log("updated data", data, id);
 
         return {
           url: `api/users/${id}`,
