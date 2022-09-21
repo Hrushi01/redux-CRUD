@@ -2,15 +2,19 @@ import React from "react";
 import Button from "../components/Button";
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
 
   const handler = () => {
     const item = { email, password };
-    console.log(item);
+
     axios
       .post("https://reqres.in/api/register", {
         email: email,
@@ -18,7 +22,8 @@ export default function Signup() {
       })
       .then((result) => {
         // console.log(result.data);
-        alert("sucessful registration Login to continue");
+        toast.success("sucessful registration Login to continue");
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };

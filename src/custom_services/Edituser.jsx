@@ -4,6 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import { editUser } from "./userSlice";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const EditUser = () => {
   const params = useParams();
@@ -26,6 +29,7 @@ const EditUser = () => {
         email: values.email,
       })
     );
+    toast.success("Data edited");
     navigate("/custom");
   };
 

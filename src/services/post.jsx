@@ -43,9 +43,9 @@ export const postApi = createApi({
     }),
     updatePost: builder.mutation({
       query: (updatePostData) => {
-        console.log("updatePostData data", updatePostData);
+        // console.log("updatePostData data", updatePostData);
         const { id, ...data } = updatePostData;
-        console.log("updated data", data, id);
+        // console.log("updated data", data, id);
 
         return {
           url: `api/users/${id}`,

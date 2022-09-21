@@ -32,7 +32,7 @@ function Show(props) {
   const [add, setadd] = useState(false);
   const [two, settwo] = useState(false);
   const [samename, setsamename] = useState("");
-  const [sameyear, setsameyear] = useState(1);
+  const [sameyear, setsameyear] = useState("");
   const [st, setst] = useState(null);
 
   const [newname, setnewname] = useState("");
@@ -101,49 +101,31 @@ function Show(props) {
     }
   };
 
-  const updatehandeler = (e) => {
+  const updatereal = (e) => {
     updatePost({ id: e, name: samename, year: sameyear });
-
-    // realdata.data.forEach(element => {
-
-    // });
-    console.log("element match==>", realdata);
-
-    // realdata.data.map((el) => {
-    //   if (el.id == st) {
-    //     el.name = samename;
-    //     console.log("el", el);
-    //   }
-    // }
-    // );
-    //  const up =realdata.data.forEach((element) => {
-    //   console.log(element,'ele'),
-    // }
-    // console.log("show update responce", responce),
-
-    // console.log(realdata, "<==realdata")
+    settwo(false);
   };
-  // items: state.items.map((res) =>
-
-  //         res._id === action.payload ? { ...res, loading: true } : res
-
-  //       ),
-
   useEffect(() => {
-    realdata ? (
-      setRealData({
-        ...realdata,
-        data: realdata?.data?.forEach((el) => {
-          if (el.id == st) {
-            el = responce?.data;
-            console.log("element match==>", realdata);
-            console.log("element match==>", el);
-          }
-        }),
-      })
-    ) : (
-      <></>
-    );
+    console.log("update respom", responce);
+    if (responce.status == "fulfilled") {
+      toast.success("Data Updated");
+      let { data } = realdata;
+
+      const i = data.findIndex((el) => {
+        return el.id == st;
+      });
+      const ele = [];
+      data.forEach((element) => {
+        if (element.id !== st) {
+          ele.push(element);
+        } else {
+          ele.push({ ...element, name: samename, year: sameyear });
+        }
+      });
+      // console.log("heloo", ele);
+
+      setRealData({ ...realdata, data: ele });
+    }
   }, [responce]);
 
   return (
@@ -215,10 +197,9 @@ function Show(props) {
                             {/* Update button down */}
                             {/* Update button down */}
                             <button
-                              // to={`/edit-user/${val.id}`}
                               onClick={() => {
                                 setadd(false);
-                                settwo(!two);
+                                settwo(true);
                                 setst(val.id);
                                 console.log(val.id);
                               }}
@@ -279,8 +260,30 @@ function Show(props) {
                                     />
                                   </svg>
                                 </button>
+                                <button
+                                  onClick={() => {
+                                    setadd(false);
+                                    settwo(true);
+                                    setst(val.id);
+                                    console.log(val.id);
+                                  }}
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                    />
+                                  </svg>
+                                </button>
                               </div>
-                              <hr />
                             </div>
                           );
                         })}
@@ -363,10 +366,17 @@ function Show(props) {
                   <div>
                     <Button
                       onClick={() => {
-                        updatehandeler(st);
+                        updatereal(st);
                       }}
                     >
                       Save
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        settwo(false);
+                      }}
+                    >
+                      Close
                     </Button>
                   </div>
                 </div>
