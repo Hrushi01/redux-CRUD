@@ -36,7 +36,6 @@ function Show(props) {
   const [st, setst] = useState(null);
 
   const [newname, setnewname] = useState("");
-  const [updatedname, setupdatedname] = useState("");
   const [newjob, setnewjob] = useState("");
 
   const [show, setshow] = useState("first");
@@ -90,8 +89,8 @@ function Show(props) {
     if (newjob != "" && newname != "") {
       newd();
       createPost(newpost);
-      console.log("create new post", createPost);
-      console.log("create ress", ress);
+      // console.log("create new post", createPost);
+      // console.log("create ress", ress);
       setadd(!add);
       setnewjob("");
       setnewname("");
@@ -106,7 +105,7 @@ function Show(props) {
     settwo(false);
   };
   useEffect(() => {
-    console.log("update respom", responce);
+    // console.log("update respom", responce);
     if (responce.status == "fulfilled") {
       toast.success("Data Updated");
       let { data } = realdata;
@@ -132,7 +131,7 @@ function Show(props) {
     <>
       <div className="bg-slate-600 container mx-auto px-2 max-w-4xl pt-10 py-2 ">
         <div className="container mx-auto px-2  pt-4   bg-slate-300 overflow-scroll">
-          <div className=" bg-slate-400 p-3 flex justify-between">
+          <div className=" bg-slate-400 p-3 flex justify-around">
             <Button
               onClick={() => {
                 switchh();
@@ -141,7 +140,7 @@ function Show(props) {
               Custom data
             </Button>
 
-            <h2 className="text-center pt-5 font-bold font-serif text-2xl text-gray-700">
+            <h2 className="text-center pt-10 font-bold font-serif text-3xl text-gray-700">
               Data from Api
             </h2>
             <Button
@@ -201,7 +200,8 @@ function Show(props) {
                                 setadd(false);
                                 settwo(true);
                                 setst(val.id);
-                                console.log(val.id);
+                                setsamename(val.name);
+                                setsameyear(val.year);
                               }}
                             >
                               <svg
@@ -265,7 +265,8 @@ function Show(props) {
                                     setadd(false);
                                     settwo(true);
                                     setst(val.id);
-                                    console.log(val.id);
+                                    setsamename(val.name);
+                                    setsameyear(val.year);
                                   }}
                                 >
                                   <svg
